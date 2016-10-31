@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>hw 14</title>
+        <style>
+            .done {
+                color: lightgray;
+                text-decoration: line-through;
+            }
+        </style>
+        <script src="jQuery.js"></script>
+        <script src="hw15.js"></script>
+        <script>
+            // ready 函数会在文档加载完成后才执行
+            $('document').ready(function(){
+                var options = [{text: '吃', checked: false},
+                               {text: '不吃', checked: true},
+                               {text: '随便', checked: false}]
+                GuaOptions4(options)
+            })
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

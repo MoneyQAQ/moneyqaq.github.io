@@ -1,0 +1,211 @@
+<!-- // 2016/10/21
+//
+// ============
+// 作业 16
+//
+//
+// 本次作业没有提示的地方需要自行搜索
+// 别忘了用 github 管理作业的进度
+// ============
+//
+
+
+
+// 作业 1
+/*
+请实现这张图片的界面和功能, 写在一个 HTML 文件中
+./example.png
+
+功能如下
+1, 统计还剩的字数, 用 length 求, 不管中英文
+2, 超过 140 字的时候就不能输入了
+3, 点击 提交 按钮会在下方的消息区的顶部增加一条消息
+
+头像和名字可以指定默认的
+*/ -->
+
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>hw 16</title>
+        <style media="screen">
+            div {
+                /*outline: 1px dashed red;*/
+            }
+            .reply-container {
+                margin: 0 auto;
+                width: 600px;
+            }
+            #id-input-textarea {
+                display: block;
+                font-size: large;
+                width: 93%;
+                height: 100px;
+                outline: none;
+                padding: 5px;
+                margin: 3% 5% 2% 3%;
+                border: 1px solid gray;
+                border-radius: 10px;
+                resize: none;
+            }
+            #id-input-submit {
+                background-color: rgba(237, 91, 40, 0.73);
+                color: white;
+                border: none;
+                outline: none;
+                width: 150px;
+                height: 35px;
+                font-size: 18px;
+                border-radius: 5px;
+            }
+            #id-span-wordsLeft {
+                font-weight: 900;
+                font-size: 28px;
+                font-family: Constantia, Georgia;
+            }
+            .reply-input-wordsLeft {
+                display: inline-block;
+                width: 98%;
+                color: gray;
+                text-align: right;
+            }
+            .wordsLeft-text {
+                font-family: simsun;
+            }
+            .reply-form-cell {
+                position: relative;
+                height: 80px;
+                margin: 0 3%;
+            }
+            .reply-cell-avatar {
+                display: inline-block;
+                position: relative;
+                width: 48px;
+                height: 48px;
+                outline: gray 1px;
+                border: 0.5px solid #BABABA;
+                border-radius: 5px;
+            }
+            .reply-cell-content {
+                display: inline-block;
+                position: absolute;
+                margin-left: 2%;
+            }
+            .reply-cell-username {
+                color: #02126A;
+                text-decoration: none;
+            }
+            .reply-cell-date {
+                color: #575793;
+                font-size: small;
+            }
+            .reply-panel-footerLine {
+                outline: 1px solid #BABABA;
+                margin: 3% 0 8% 0;
+            }
+            .reply-cell-footerLine {
+                outline: 1px dashed #BABABA;
+                margin: 3% 0;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="reply-container">
+            <div class="reply-input-panel">
+                <textarea id='id-input-textarea'></textarea>
+                <div class="reply-input-wordsLeft">
+                    <span class='wordsLeft-text'>还能输入</span>
+                    <span id='id-span-wordsLeft'>140</span>
+                    <span class='wordsLeft-text'>个字</span>
+                    <button id='id-input-submit' type="button">提交</button>
+                </div>
+                <div class="reply-panel-footerLine"></div>
+            </div>
+            <div class="reply-form-container">
+                <div class="reply-form-cell">
+                    <img class="reply-cell-avatar" src="qaq.jpg" alt="头像" />
+                    <div class="reply-cell-content">
+                        <a href="#" class="reply-cell-username">瓜：</a>
+                        <span class="reply-cell-user-input">
+                            作业16
+                        </span>
+                        <br>
+                        <span class="reply-cell-date">10月21日</span>
+                    </div>
+                    <div class="reply-cell-footerLine"></div>
+                </div>
+                <div class="reply-form-cell">
+                    <img class="reply-cell-avatar" src="qaq.jpg" alt="头像" />
+                    <div class="reply-cell-content">
+                        <a href="#" class="reply-cell-username">萧瓜：</a>
+                        <span class="reply-cell-user-input">
+                            仿制这个页面，实现添加的功能
+                        </span>
+                        <br>
+                        <span class="reply-cell-date">10月21日</span>
+                    </div>
+                    <div class="reply-cell-footerLine"></div>
+                </div>
+            </div>
+        </div>
+        <script src='JQuery.js'></script>
+        <script type="text/javascript">
+var replyCellTemplate = function(content, username='MoneyQAQ', avatar='qaq.jpg') {
+    return `<div class="reply-form-cell">
+        <img class="reply-cell-avatar" src="${avatar}" alt="头像" />
+        <div class="reply-cell-content">
+            <a href="#" class="reply-cell-username">${username}：</a>
+            <span class="reply-cell-user-input">
+                ${content}
+            </span>
+            <br>
+            <span class="reply-cell-date">${date()}</span>
+        </div>
+        <div class="reply-cell-footerLine"></div>
+    </div>`
+}
+
+var date = function(z) {
+    if (z === undefined) { z = new Date() }
+    var x = z.toString()
+    var zh     = '天一二三四五六'
+    var Year   = x.slice(10,15)
+    var Month  = z.getMonth() + 1
+    var Day    = x.slice(8,10)
+    var Hour   = x.slice(16,18)
+    var Minute = x.slice(19,21)
+    var Second = x.slice(22,24)
+    var Week   = zh[ z.getDay() ]
+    if ( String(Month).length === 1) {
+        Month = '0' + Month
+    }
+    return `${Month}月${Day}日`
+}
+
+var submit = function(username, avatar) {
+    var textarea = $('textarea')
+    let v = textarea.val()
+    if (v !== undefined && v.length !== 0) {
+        $('.reply-form-container').prepend(replyCellTemplate(v))
+        textarea.val('')
+    }
+    calcWordsLeft()
+}
+
+var calcWordsLeft = function(event) {
+    let v = $('textarea').val()
+    if (v.length > 140) {
+        v = v.slice(0,140)
+        $('textarea').val(v)
+    }
+    $('#id-span-wordsLeft').text(140 - v.length)
+}
+
+$('#id-input-submit').on('click', function() {submit()})
+
+$('textarea').on('change keyup paste', function(event) {calcWordsLeft(event)})
+        </script>
+    </body>
+</html>
