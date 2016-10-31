@@ -132,10 +132,10 @@
                     <div class="reply-cell-content">
                         <div class="reply-cell-nameAndDate">
                             <a href="#" class="reply-cell-username">瓜</a>
-                            <span class="reply-cell-date">10月21日</span>
+                            <span class="reply-cell-date">10月21日 15时18分27秒</span>
                         </div>
                         <span class="reply-cell-user-input">
-                            作业16很长
+                            作业16
                         </span>
                     </div>
                     <div class="reply-cell-footerLine"></div>
@@ -145,7 +145,7 @@
                     <div class="reply-cell-content">
                         <div class="reply-cell-nameAndDate">
                             <a href="#" class="reply-cell-username">萧瓜</a>
-                            <span class="reply-cell-date">10月21日</span>
+                            <span class="reply-cell-date">10月21日 15时25分40秒</span>
                         </div>
                         <span class="reply-cell-user-input">
                             仿制这个页面，实现添加的功能
@@ -187,7 +187,7 @@ var date = function(z) {
     if ( String(Month).length === 1) {
         Month = '0' + Month
     }
-    return `${Month}月${Day}日`
+    return `${Month}月${Day}日 ${Hour}时${Minute}分${Second}秒`
 }
 
 var submit = function(username, avatar) {
